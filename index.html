@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#020817" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Newsletter Quest" />
+  <meta name="description" content="App gamificada de newsletters para Klaid" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <title>Newsletter Quest · Klaid</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: #020817; height: 100%; overflow-x: hidden; }
+    #root { min-height: 100vh; }
+    #loading {
+      position: fixed; inset: 0; background: #020817;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #6366F1; font-family: system-ui; gap: 16px; z-index: 9999;
+    }
+    #loading .logo { font-size: 48px; animation: pulse 1.5s infinite; }
+    #loading .text { font-size: 14px; color: #475569; letter-spacing: 2px; text-transform: uppercase; }
+    #loading .bar { width: 120px; height: 3px; background: #1E293B; border-radius: 4px; overflow: hidden; }
+    #loading .bar-fill { height: 100%; background: linear-gradient(90deg, #6366F1, #EC4899); border-radius: 4px; animation: load 1.5s ease-in-out forwards; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+    @keyframes load { from{width:0} to{width:100%} }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="logo">👾</div>
+    <div class="text">Newsletter Quest</div>
+    <div class="bar"><div class="bar-fill"></div></div>
+  </div>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const el = document.getElementById('loading');
+        if (el) el.style.display = 'none';
+      }, 1200);
+    });
+  </script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
